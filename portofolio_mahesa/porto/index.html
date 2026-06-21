@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahesa Surya Sandika — Colorful Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Menggunakan font Space Grotesk untuk kesan tech & kreatif -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== COLORFUL NEO-BRUTALISM THEME ===== */
+        :root {
+            --bg-main: #f4f0ec;
+            --text-dark: #111111;
+            
+            /* Palet Warna Cerah */
+            --c-yellow: #FFD166;
+            --c-pink: #EF476F;  
+            --c-blue: #118AB2;
+            --c-green: #06D6A0;
+            --c-purple: #9D4EDD;
+            
+            --border-width: 3px;
+            --border-color: #111111;
+            --font-main: 'Space Grotesk', sans-serif;
+            
+            /* Hard Shadows khas Brutalism */
+            --shadow-brutal: 6px 6px 0px var(--border-color);
+            --shadow-hover: 2px 2px 0px var(--border-color);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.7;
+            /* Pola titik-titik (polka) untuk latar belakang */
+            background-image: radial-gradient(#d5d1cd 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        /* Intro / Loading Screen */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--c-yellow);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+        .loader-text {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: var(--bg-main);
+            padding: 10px 30px;
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--shadow-brutal);
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-main);
+            border-bottom: var(--border-width) solid var(--border-color);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--c-pink);
+            padding: 5px 15px;
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: 3px 3px 0px var(--border-color);
+        }
+        .nav-link {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 10px;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .nav-link:hover {
+            background: var(--c-yellow);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transform: translateY(-2px);
+        }
+
+        /* Tombol Neo-Brutalism */
+        .btn-brutal {
+            background-color: var(--c-blue);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--shadow-brutal);
+            transition: all 0.1s;
+            text-transform: uppercase;
+        }
+        .btn-brutal:hover {
+            transform: translate(4px, 4px);
+            box-shadow: var(--shadow-hover);
+            color: white;
+        }
+        .btn-brutal-alt {
+            background-color: var(--c-yellow);
+            color: var(--text-dark);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--shadow-brutal);
+            transition: all 0.1s;
+        }
+        .btn-brutal-alt:hover {
+            transform: translate(4px, 4px);
+            box-shadow: var(--shadow-hover);
+            color: var(--text-dark);
+        }
+
+        /* Tipografi */
+        .section-title {
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px white, 4px 4px 0px var(--text-dark);
+        }
+
+        /* Cards Colorful */
+        .brutal-card {
+            background: var(--bg-main);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-brutal);
+            height: 100%;
+        }
+        .brutal-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0px var(--border-color);
+        }
+        .bg-pink { background-color: var(--c-pink); color: white; }
+        .bg-blue { background-color: var(--c-blue); color: white; }
+        .bg-yellow { background-color: var(--c-yellow); color: var(--text-dark); }
+        .bg-green { background-color: var(--c-green); color: var(--text-dark); }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: var(--text-dark);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            box-shadow: 3px 3px 0px var(--border-color);
+        }
+
+        /* Tags / Badges */
+        .tech-pill {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin: 4px 2px;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+
+        /* Timeline / Journey */
+        .timeline-wrapper {
+            position: relative;
+            padding-left: 30px;
+            border-left: var(--border-width) dashed var(--border-color);
+            margin-left: 20px;
+        }
+        .timeline-box {
+            position: relative;
+            margin-bottom: 40px;
+            background: white;
+            border: var(--border-width) solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px var(--border-color);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -48px;
+            top: 20px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--c-purple);
+            border: var(--border-width) solid var(--border-color);
+        }
+
+        /* Foto Profil Area */
+        .hero-img-container {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+        }
+        .hero-img-container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
+            background: var(--c-blue);
+            border-radius: 24px;
+            border: var(--border-width) solid var(--border-color);
+            z-index: -1;
+        }
+        .hero-img {
+            border-radius: 24px;
+            width: 100%;
+            max-width: 350px;
+            border: var(--border-width) solid var(--border-color);
+            background-color: var(--c-yellow);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--c-purple);
+            border-top: var(--border-width) solid var(--border-color);
+            padding: 40px 0;
+            color: white;
+        }
+        
+        /* Marquee Text Berwarna */
+        .marquee-bar {
+            background: var(--text-dark);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            border-bottom: var(--border-width) solid var(--border-color);
+            border-top: var(--border-width) solid var(--border-color);
+        }
+        .marquee-content {
+            display: flex;
+            width: 200%;
+            animation: scroll-left 15s linear infinite;
+        }
+        .marquee-content span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0 40px;
+            color: var(--c-yellow);
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Layar Loading Colorful -->
+    <div id="loading-screen">
+        <div class="loader-text">MSS.</div>
+    </div>
+
+    <!-- Navigasi -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mahesa Surya Sandika.</a>
+            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: 3px solid #111 !important; background: var(--c-yellow);">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Keahlian</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Portofolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Pendidikan</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn-brutal btn-sm px-4 py-2 mt-2 mt-lg-0 d-inline-block text-decoration-none" href="#contact">Kontak Saya</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bagian Hero -->
+    <section class="min-vh-100 d-flex align-items-center pt-5 mt-5 mt-lg-0">
+        <div class="container">
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
+                <div class="col-lg-7 mt-5 mt-lg-0">
+                    <span class="badge text-dark border px-3 py-2 mb-3 fw-bold fs-6" style="background: var(--c-green); border: 3px solid #111 !important; box-shadow: 2px 2px 0px #111;">
+                        📍 Tangerang Selatan, Indonesia
+                    </span>
+                    <h1 class="display-4 fw-bolder text-dark mb-4" style="line-height: 1.1;">
+                        Membangun <span style="color: white; -webkit-text-stroke: 2px #111; text-shadow: 3px 3px 0px #111;">Solusi Digital</span> & Infrastruktur Web.
+                    </h1>
+                    <p class="lead text-dark fw-medium mb-5 pe-lg-5">
+                        Saya Mahesa Surya Sandika. Seorang mahasiswa IT yang berfokus pada integrasi web modern (CI/CD), eksplorasi kecerdasan buatan, dan merancang kreativitas digital dengan gaya *bold*.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#projects" class="btn-brutal text-decoration-none">Lihat Karya</a>
+                        <a href="https://graventyone.vercel.app/" target="_blank" class="btn-brutal-alt text-decoration-none">
+                            <i class="bi bi-globe me-2"></i>Portfolio
+                        </a>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center text-lg-end">
+                    <div class="hero-img-container">
+                        <!-- Ganti dengan foto profil Anda -->
+                        <img src="saya.jpeg" alt="Mahesa Surya Sandika" class="hero-img img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pita Berjalan -->
+    <div class="marquee-bar">
+        <div class="marquee-content">
+            <span>Web Developer</span><span>⭐</span>
+            <span>Graphic Designer</span><span>⭐</span>
+            <span>Sim Racing Tuner</span><span>⭐</span>
+            <span>AI Explorer</span><span>⭐</span>
+            <!-- Berulang -->
+            <span>Web Developer</span><span>⭐</span>
+            <span>Graphic Designer</span><span>⭐</span>
+            <span>Sim Racing Tuner</span><span>⭐</span>
+            <span>AI Explorer</span><span>⭐</span>
+        </div>
+    </div>
+
+    <!-- Bagian Keahlian & Minat -->
+    <section id="skills" class="py-5">
+        <div class="container py-5">
+            <div class="row mb-5">
+                <div class="col-lg-8">
+                    <h2 class="section-title">Keahlian & Eksplorasi</h2>
+                    <p class="fs-5 fw-medium text-dark">Kombinasi antara logika pemrograman, teori komputasi, dan kreativitas visual yang dinamis.</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="brutal-card bg-yellow">
+                        <div class="card-icon"><i class="bi bi-laptop"></i></div>
+                        <h3 class="h4 fw-bold mb-3">Web Development</h3>
+                        <p class="mb-4 fw-medium">Pengembangan situs web dinamis dengan pemahaman mendalam tentang arsitektur klien-pelayan.</p>
+                        <div>
+                            <span class="tech-pill">HTML/CSS</span>
+                            <span class="tech-pill">JavaScript</span>
+                            <span class="tech-pill">PHP</span>
+                            <span class="tech-pill">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="brutal-card bg-blue">
+                        <div class="card-icon text-primary"><i class="bi bi-cloud-check"></i></div>
+                        <h3 class="h4 fw-bold mb-3 text-white">Cloud & CI/CD</h3>
+                        <p class="mb-4 fw-medium text-white">Otomatisasi penyebaran (deployment) aplikasi agar efisien, aman, dan dapat diskalakan.</p>
+                        <div>
+                            <span class="tech-pill">Git / GitHub</span>
+                            <span class="tech-pill">Cloudflare Pages</span>
+                            <span class="tech-pill">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="brutal-card bg-pink">
+                        <div class="card-icon text-danger"><i class="bi bi-bezier2"></i></div>
+                        <h3 class="h4 fw-bold mb-3 text-white">Hobi & Spesialisasi</h3>
+                        <p class="mb-4 fw-medium text-white">AI (SVM, Random Forest), desain logo grafiti, hingga mekanika *tuning* kendaraan AWD.</p>
+                        <div>
+                            <span class="tech-pill">Machine Learning</span>
+                            <span class="tech-pill">Graffiti Art</span>
+                            <span class="tech-pill">CarX Tuning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Portofolio / Proyek -->
+    <section id="projects" class="py-5" style="background: white; border-top: 3px solid #111; border-bottom: 3px solid #111;">
+        <div class="container py-5">
+            <h2 class="section-title text-center mb-5">Proyek Pilihan</h2>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="brutal-card p-0 overflow-hidden bg-main">
+                        <div class="row g-0">
+                            <div class="col-md-5 d-flex align-items-center justify-content-center" style="min-height: 250px; background: var(--c-purple); border-right: 3px solid #111;">
+                                <i class="bi bi-braces text-white" style="font-size: 6rem; opacity: 0.8;"></i>
+                            </div>
+                            <div class="col-md-7 p-4 p-lg-5">
+                                <div class="d-flex gap-2 mb-3">
+                                    <span class="tech-pill" style="background: var(--c-yellow);">Cloudflare</span>
+                                    <span class="tech-pill" style="background: var(--c-green);">GitHub CI/CD</span>
+                                </div>
+                                <h3 class="fw-bold mb-3 fs-2">GRAVENTYONE</h3>
+                                <p class="mb-4 fw-medium text-dark">
+                                    Membangun arsitektur web modern yang di-host secara efisien melalui saluran pipa CI/CD GitHub ke Cloudflare Pages dan Vercel. Proyek ini memfokuskan pada kecepatan akses, manajemen kebijakan (Access Policies), serta validasi formulir sisi klien dan pelayan menggunakan JavaScript dan PHP.
+                                </p>
+                                <a href="https://graventyone.vercel.app/" class="btn-brutal text-decoration-none d-inline-block">
+                                    Lihat Proyek <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Pendidikan -->
+    <section id="journey" class="py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="section-title mb-5 text-center">Perjalanan Akademik</h2>
+                    
+                    <div class="timeline-wrapper">
+                        <!-- Item Kuliah -->
+                        <div class="timeline-box" style="background: var(--c-yellow);">
+                            <div class="timeline-dot" style="background: var(--c-blue);"></div>
+                            <span class="badge border border-dark text-dark px-2 py-1 mb-2" style="background: white;">SAAT INI</span>
+                            <h4 class="fw-bold mt-2">Universitas Budi Luhur</h4>
+                            <p class="fw-medium mb-0 text-dark">
+                                Berfokus pada pemahaman algoritma kompleks, struktur data, pengembangan perangkat lunak berbasis web, dan kecerdasan buatan.
+                            </p>
+                        </div>
+                        
+                        <!-- Item SMA -->
+                        <div class="timeline-box" style="background: var(--c-green);">
+                            <div class="timeline-dot" style="background: var(--c-pink);"></div>
+                            <span class="badge border border-dark text-dark px-2 py-1 mb-2" style="background: white;">Pendidikan Menengah Atas</span>
+                            <h4 class="fw-bold mt-2 text-dark">[SMK YADIKA 5]</h4>
+                            <p class="fw-medium mb-0 text-dark">
+                                Membangun fondasi penalaran logis, matematika, dan awal mula ketertarikan terhadap eksplorasi dunia digital dan desain grafis.
+                            </p>
+                        </div>
+
+                        <!-- Item SMP & SD -->
+                        <div class="timeline-box" style="background: white;">
+                            <div class="timeline-dot" style="background: var(--c-yellow);"></div>
+                            <span class="badge border border-dark text-dark px-2 py-1 mb-2" style="background: var(--bg-main);">Pendidikan Dasar</span>
+                            <h4 class="fw-bold mt-2">[SMP YAPIA]</h4>
+                            <p class="fw-medium mb-0 text-muted">
+                                Pembentukan karakter dasar dan nilai edukasi awal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Kontak & Footer -->
+    <footer id="contact" class="footer">
+        <div class="container text-center py-5">
+            <h2 class="fw-bold mb-4" style="font-size: 3rem; text-shadow: 3px 3px 0px #111;">Mari Berkolaborasi!</h2>
+            <p class="mb-5 max-w-xl mx-auto fs-5 fw-medium">
+                Tertarik untuk membahas proyek web, mendiskusikan teori komputasi, atau sekadar berbincang tentang pengaturan suspensi di CarX Street? Sapa saya melalui tautan di bawah.
+            </p>
+            
+            <div class="d-flex justify-content-center gap-4 mb-5">
+                <a href="mailto:email_Mahesasuryas22@gmail.com" class="btn-brutal-alt text-decoration-none fs-4 px-4 py-2" title="Email"><i class="bi bi-envelope"></i></a>
+                <a href="https://github.com/mahesasuryasandika89-dotcom" target="_blank" class="btn-brutal-alt text-decoration-none fs-4 px-4 py-2" title="GitHub"><i class="bi bi-github"></i></a>
+                <a href="https://instagram.com/mahesasuryasandika_" target="_blank" class="btn-brutal-alt text-decoration-none fs-4 px-4 py-2" title="Instagram"><i class="bi bi-instagram"></i></a>
+            </div>
+            
+            <div class="pt-4 border-top" style="border-color: #111 !important;">
+                <p class="fw-bold mb-0">© 2026 Mahesa Surya Sandika. Dibangun dengan kreativitas tinggi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Logika Loading Screen Halus
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loading-screen');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.visibility = 'hidden';
+                }, 800);
+            }, 800); 
+        });
+    </script>
+</body>
+</html>
